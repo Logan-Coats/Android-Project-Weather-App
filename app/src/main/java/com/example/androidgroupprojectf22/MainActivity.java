@@ -2,6 +2,7 @@ package com.example.androidgroupprojectf22;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gson = new Gson();
     }
 
     public void testApi(View v){
@@ -43,12 +43,14 @@ public class MainActivity extends AppCompatActivity {
     private String jsonResponse = "";
 
     public void callApi(){
+        // This function will be in each activity, or can be abstracted if needed.
+        // add code here to get current location IF text edit on search is empty OR if not passed a string for the call.
+
 
         StringRequest req = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 jsonResponse = response;
-                Log.d("Json",jsonResponse);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -63,15 +65,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void deserialize_json(){
         if(jsonResponse == "") return;
-        //WeatherAPIConstants weather = gson.fromJson(jsonResponse,WeatherAPIConstants.class) ;
-        try{
-            JSONObject weather = new JSONObject(jsonResponse);
-            JSONObject current = new JSONObject(weather.getString("current"));
-            Log.d("Tag", ""+ weather.get("current"));
-            Log.d("Tag", ""+ current.get("temp_f"));
-        } catch(JSONException err){
-            Log.d("Error",err.toString());
-        }
+        //call handler class here
 
     }
+    public void toWeek(View v){
+        Intent week = new Intent(this, WeekForecast.class);
+        startActivity(week);
+    }
+
+   /* public void toMyLoc(View v){
+        Intent myLocation = new Intent(this, WeekForecast.class);
+        startActivity(myLocation);
+    }
+    
+    */
 }

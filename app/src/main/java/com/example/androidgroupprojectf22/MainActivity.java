@@ -2,6 +2,7 @@ package com.example.androidgroupprojectf22;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -66,5 +67,9 @@ public class MainActivity extends AppCompatActivity {
         if(jsonResponse == "") return;
         //call handler class here
 
+    }
+    public void toWeek(View v){
+        Intent week = new Intent(this, WeekForecast.class);
+        startActivity(week);
     }
 }

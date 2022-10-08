@@ -3,78 +3,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".WeekForecast">
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/searchBT"
         android:layout_width="409dp"
-        android:layout_height="48dp"
-        android:onClick="toSearch"
+        android:layout_height="wrap_content"
+        android:onClick="onSearchBTNClick"
         android:text="Search"
         app:icon="@android:drawable/ic_menu_search"
         app:iconPadding="-20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.001" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/currLoc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         android:text="Current or Searched Location"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/currTemp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.115" />
+        app:layout_constraintTop_toBottomOf="@+id/searchBT" />
 
     <TextView
         android:id="@+id/currTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:scaleX="2"
         android:scaleY="2"
         android:text="current temp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.213" />
+        app:layout_constraintTop_toBottomOf="@+id/currLoc" />
 
     <TextView
         android:id="@+id/currWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="80dp"
         android:text="current weather"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/currWeatherIMG"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.316" />
+        app:layout_constraintTop_toBottomOf="@+id/currTemp" />
 
     <ImageView
         android:id="@+id/currWeatherIMG"
         android:layout_width="48dp"
         android:layout_height="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintStart_toEndOf="@+id/currWeather"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31"
+        app:layout_constraintTop_toBottomOf="@+id/currTemp"
         app:srcCompat="@mipmap/ic_launcher" />
 
-    <GridView
-        android:id="@+id/daysGrid"
-        android:layout_width="403dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hourlyWeather"
+        android:layout_width="409dp"
         android:layout_height="445dp"
+        android:layout_marginTop="31dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currWeatherIMG"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

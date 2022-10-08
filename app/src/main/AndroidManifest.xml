@@ -20,7 +20,7 @@
             android:name=".activity_history"
             android:exported="false" />
         <activity
-            android:name=".CurrentForecast"
+            android:name=".hourly_Forecast"
             android:exported="false" />
         <activity
             android:name=".WeekForecast"

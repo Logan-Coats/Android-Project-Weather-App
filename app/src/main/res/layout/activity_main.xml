@@ -27,8 +27,8 @@
         android:layout_width="101dp"
         android:layout_height="54dp"
         android:layout_marginTop="304dp"
-        android:text="Search"
         android:onClick="toWeek"
+        android:text="Search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.141"
@@ -41,6 +41,7 @@
         android:layout_width="153dp"
         android:layout_height="53dp"
         android:layout_marginStart="211dp"
+        android:onClick="toMyLoc"
         android:text="My Location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,4 +49,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.449" />
+
+    <Button
+        android:id="@+id/savedBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saved Locations"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.749" />
 </androidx.constraintlayout.widget.ConstraintLayout>

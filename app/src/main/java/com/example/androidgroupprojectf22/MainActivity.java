@@ -15,7 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +25,6 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
-    Gson gson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +75,11 @@ public class MainActivity extends AppCompatActivity {
         Intent myLocation = new Intent(this, WeekForecast.class);
         startActivity(myLocation);
     }
-    
+
+    public void toHistory(View v){
+        Intent history = new Intent(this, activity_history.class);
+        startActivity(history);
+    }
 
 
     public void toHourly(View v) {

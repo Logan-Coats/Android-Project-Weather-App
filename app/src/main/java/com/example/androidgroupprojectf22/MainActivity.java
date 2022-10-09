@@ -73,12 +73,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(week);
     }
 
-   /* public void toMyLoc(View v){
+   public void toMyLoc(View v){
         Intent myLocation = new Intent(this, WeekForecast.class);
         startActivity(myLocation);
     }
     
-    */
+
 
     public void toHourly(View v) {
         Intent hourly = new Intent(this, hourly_Forecast.class);

@@ -4,7 +4,7 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
-public class WeatherAPIConstants implements java.io.Serializable {
+public class WeatherApiObj implements java.io.Serializable {
 
     class location_dtype {
         public String name;

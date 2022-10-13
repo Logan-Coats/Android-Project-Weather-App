@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -36,12 +37,12 @@ public class MainActivity extends AppCompatActivity {
         callApi(); // should log to console
     }
     private final String appid = "0ffb075f7e03483db28200427220310";
-    private final String location = "64468";
-    private final String url = "https://api.weatherapi.com/v1/current.json?key="+appid+"&q="+location;
+    private final String queryParams = "64468";
+    private final String url = "https://api.weatherapi.com/v1/current.json?key="+appid+"&q="+queryParams;
     private String jsonResponse = "";
 
     public void callApi(){
-        // This function will be in each activity, or can be abstracted if needed.
+        // This function will be in each activity that needs api access.
         // add code here to get current location IF text edit on search is empty OR if not passed a string for the call.
 
 
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void toWeek(View v){
         Intent week = new Intent(this, WeekForecast.class);
+        EditText locationET = findViewById(R.id.locationET);
+        week.putExtra("Location", locationET.getText().toString());
         startActivity(week);
     }
 

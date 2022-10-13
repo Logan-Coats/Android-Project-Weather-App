@@ -8,7 +8,7 @@
 
 
     <EditText
-        android:id="@+id/searchBarText"
+        android:id="@+id/locationET"
         android:layout_width="227dp"
         android:layout_height="86dp"
         android:ems="10"

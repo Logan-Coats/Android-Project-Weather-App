@@ -14,12 +14,12 @@ public class WeatherApiObj implements java.io.Serializable {
         public double lon;
         public String tz_id;
         public long localtime_epoch;
-        public Date localtime;
+        public String localtime;
     }
 
     class current_dtype {
         public Long last_updated_epoch;
-        public Date last_updated;
+        public String last_updated;
         public double temp_c;
         public double temp_f;
         public int is_day;
@@ -54,7 +54,7 @@ public class WeatherApiObj implements java.io.Serializable {
 
     class forecast_dtype {
         class forecastday_dtype{
-            public Date date;
+            public String date;
             public Long date_epoch;
             class day_dtype{
                 public double maxtemp_c;
@@ -94,7 +94,7 @@ public class WeatherApiObj implements java.io.Serializable {
             public astro_dtype astro;
             class hour_dtype {
                 public long time_epoch;
-                public Date time;
+                public String time;
                 public double temp_c;
                 public double temp_f;
                 public int is_day;

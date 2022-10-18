@@ -3,9 +3,11 @@ package com.example.androidgroupprojectf22;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -23,7 +25,8 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
     private WeatherApiObj forecast = new WeatherApiObj();
     private Weather forecastHelper = new Weather();
     TextView currTemp;
-
+    TextView currWeather;
+    ImageView currWeatherIMG;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,8 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
         Intent week = getIntent();
         location = week.getStringExtra("Location");
         currTemp = findViewById(R.id.currTemp);
+        currWeather = findViewById(R.id.currWeather);
+        currWeatherIMG = findViewById(R.id.currWeatherIMG);
         Weather forecastHelper = new Weather();
         callApi(location);
 
@@ -50,6 +55,8 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
                 jsonResponse = response;
                 forecast = forecastHelper.convertToObject(jsonResponse);
                 currTemp.setText(String.valueOf(forecast.current.temp_f));
+                currWeather.setText(String.valueOf(forecast.current.condition.text));
+                currWeatherIMG.setImageURI(Uri.parse(forecast.current.condition.icon));
             }
         }, new Response.ErrorListener() {
             @Override

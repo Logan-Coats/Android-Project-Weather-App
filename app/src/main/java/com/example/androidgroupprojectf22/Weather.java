@@ -20,28 +20,4 @@ public class Weather {
         WeatherApiObj w_api = gson.fromJson(jsonResponse, WeatherApiObj.class);
         return w_api;
     }
-    public void callApi(String loc){
-        if(loc == "" || loc == null){
-            //get current location
-        }else{
-            url = url.concat(loc);
-            url = url.concat("&days=5&aqi=no&alerts=no");
-        }
-
-        StringRequest req = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                jsonResponse = response;
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("TAG" , error.toString().trim());
-            }
-        });
-        //RequestQueue reqQueue = Volley.newRequestQueue();
-        //reqQueue.add(req);
-
-    }
 }

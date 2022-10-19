@@ -28,8 +28,6 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyAdapter.WeeklyView
 
     @Override
     public void onBindViewHolder(@NonNull WeeklyViewHolder holder, int position){
-        //assign labels here
-        //temp high, temp low, condition text.
         TextView weeklyTempLow = holder.itemView.findViewById(R.id.weeklyTempLow);
         TextView weeklyTempHigh = holder.itemView.findViewById(R.id.weeklyTempHigh);
         TextView weeklyCondition = holder.itemView.findViewById(R.id.weeklyCondition);
@@ -39,5 +37,5 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyAdapter.WeeklyView
         weeklyTempHigh.setText(String.valueOf(model.getWeeklyData().get(position).getHigh()));
     }
     @Override
-    public int getItemCount() { return 0; }//use get method later
+    public int getItemCount() { return model.getWeeklyData().size(); }
 }

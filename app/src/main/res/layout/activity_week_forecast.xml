@@ -73,7 +73,10 @@
         android:id="@+id/weeklyRecyclerView"
         android:layout_width="412dp"
         android:layout_height="383dp"
-        tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="347dp" />
+        android:layout_marginTop="347dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

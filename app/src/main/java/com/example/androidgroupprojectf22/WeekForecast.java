@@ -1,6 +1,8 @@
 package com.example.androidgroupprojectf22;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -20,10 +22,12 @@ import com.android.volley.toolbox.Volley;
 public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'Daily' activity, as it will show the weather for the next few days.
     private String appid = "0ffb075f7e03483db28200427220310";
     private String location = "64468";
-    private String url = "https://api.weatherapi.com/v1/current.json?key="+appid+"&q=";
+    private String url = "https://api.weatherapi.com/v1/forecast.json?key="+appid+"&q=";
     private String jsonResponse = "";
     private WeatherApiObj forecast = new WeatherApiObj();
     private Weather forecastHelper = new Weather();
+    private WeeklyAdapter weeklyServer = null;
+    RecyclerView weeklyRecycler = null;
     TextView currTemp;
     TextView currWeather;
     ImageView currWeatherIMG;
@@ -37,9 +41,14 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
         currTemp = findViewById(R.id.currTemp);
         currWeather = findViewById(R.id.currWeather);
         currWeatherIMG = findViewById(R.id.currWeatherIMG);
+
+        weeklyServer = new WeeklyAdapter();
+        weeklyRecycler = findViewById(R.id.weeklyRecyclerView);
+        weeklyRecycler.setAdapter(weeklyServer);
+        LinearLayoutManager myManager = new LinearLayoutManager(this);
+        weeklyRecycler.setLayoutManager(myManager);
         Weather forecastHelper = new Weather();
         callApi(location);
-
     }
     public void callApi(String loc) {
         if (loc == "" || loc == null) {
@@ -56,7 +65,14 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
                 forecast = forecastHelper.convertToObject(jsonResponse);
                 currTemp.setText(String.valueOf(forecast.current.temp_f));
                 currWeather.setText(String.valueOf(forecast.current.condition.text));
-                currWeatherIMG.setImageURI(Uri.parse(forecast.current.condition.icon));
+                //currWeatherIMG.setImageURI(Uri.parse(forecast.current.condition.icon));
+                for(int i = 0; i<5;i++){
+                    double low = forecast.forecast.forecastday.get(i).day.mintemp_f;
+                    double high = forecast.forecast.forecastday.get(i).day.maxtemp_f;
+                    String condition = forecast.forecast.forecastday.get(i).date;
+                    WeeklyModel.getModel().addWeeklyData(low,high,condition);
+                    weeklyServer.notifyItemInserted(i);
+                }
             }
         }, new Response.ErrorListener() {
             @Override

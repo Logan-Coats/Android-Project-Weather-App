@@ -12,9 +12,6 @@ import com.google.gson.Gson;
 
 
 public class Weather {
-    private final String appid = "0ffb075f7e03483db28200427220310";
-    private  String url = "https://api.weatherapi.com/v1/current.json?key="+appid+"&q=";
-    private String jsonResponse = "";
     public WeatherApiObj convertToObject(String jsonResponse){
         Gson gson = new Gson();
         WeatherApiObj w_api = gson.fromJson(jsonResponse, WeatherApiObj.class);

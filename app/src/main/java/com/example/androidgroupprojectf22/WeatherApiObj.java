@@ -1,7 +1,6 @@
 package com.example.androidgroupprojectf22;
 
 import java.sql.Time;
-import java.util.Date;
 import java.util.List;
 
 public class WeatherApiObj implements java.io.Serializable {
@@ -45,8 +44,8 @@ public class WeatherApiObj implements java.io.Serializable {
         public int cloud;
         public double feels_like_c;
         public double feels_like_f;
-        public int vis_km;
-        public int vis_miles;
+        public double vis_km;
+        public double vis_miles;
         public int uv;
         public double gust_mph;
         public double gust_kph;
@@ -65,10 +64,10 @@ public class WeatherApiObj implements java.io.Serializable {
                 public double avgtemp_f;
                 public double maxwind_mph;
                 public double maxwind_kph;
-                public int totalprecip_mm;
-                public int totalprecip_in;
-                public int avgvis_km;
-                public int avgvis_miles;
+                public double totalprecip_mm;
+                public double totalprecip_in;
+                public double avgvis_km;
+                public double avgvis_miles;
                 public int daily_will_it_rain;
                 public int daily_chance_of_rain;
                 public int daily_will_it_snow;
@@ -84,10 +83,10 @@ public class WeatherApiObj implements java.io.Serializable {
             }
             public day_dtype day;
             class astro_dtype{
-                public Time sunrise;
-                public Time sunset;
-                public Time moonrise;
-                public Time moonset;
+                public String sunrise;
+                public String  sunset;
+                public String moonrise;
+                public String moonset;
                 public String moon_phase;
                 public String moon_illumination;
             }
@@ -111,8 +110,8 @@ public class WeatherApiObj implements java.io.Serializable {
                 public String wind_dir;
                 public int pressure_mb;
                 public double pressure_in;
-                public int precip_mm;
-                public int precip_in;
+                public double precip_mm;
+                public double precip_in;
                 public int humidity;
                 public int cloud;
                 public double feels_like_c;
@@ -127,8 +126,8 @@ public class WeatherApiObj implements java.io.Serializable {
                 public int chance_of_rain;
                 public int will_it_snow;
                 public int chance_of_snow;
-                public int vis_km;
-                public int vis_miles;
+                public double vis_km;
+                public double vis_miles;
                 public double gust_mph;
                 public double gust_kph;
                 public int uv;
@@ -140,5 +139,5 @@ public class WeatherApiObj implements java.io.Serializable {
 
     public location_dtype location;
     public current_dtype current;
-    public forecast_dtype forcast;
+    public forecast_dtype forecast;
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class WeeklyModel {
     private WeeklyModel() {
         this.weeklyData = new ArrayList<WeeklyData>();
+        loadModel();
     }
 
     public static class WeeklyData{
@@ -43,6 +44,9 @@ public class WeeklyModel {
         return model;
     }
 
-
+    private void loadModel(){
+        //addWeeklyData(1.0,2.0,"sunny");
+        //addWeeklyData(2.0,3.0,"cloudy");
+    }
 
 }

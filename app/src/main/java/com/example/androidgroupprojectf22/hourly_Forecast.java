@@ -25,6 +25,8 @@ public class hourly_Forecast extends AppCompatActivity {
         hourlyWeather = findViewById(R.id.hourlyWeather);
     }
 
+    //TODO: implement api call and populate fields and recycler view with the next 24 hours of weather (temp, condition)
+
     public void onSearchBTNClick(View v){
         Intent search = new Intent(this, MainActivity.class);
         startActivity(search);

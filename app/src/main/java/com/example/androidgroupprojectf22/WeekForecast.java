@@ -5,7 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +21,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'Daily' activity, as it will show the weather for the next few days.
     private String appid = "0ffb075f7e03483db28200427220310";
@@ -65,7 +75,7 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
                 forecast = forecastHelper.convertToObject(jsonResponse);
                 currTemp.setText(String.valueOf(forecast.current.temp_f));
                 currWeather.setText(String.valueOf(forecast.current.condition.text));
-                //currWeatherIMG.setImageURI(Uri.parse(forecast.current.condition.icon));
+                loadImage("https:" + forecast.current.condition.icon);
                 for(int i = 0; i<5;i++){
                     double low = forecast.forecast.forecastday.get(i).day.mintemp_f;
                     double high = forecast.forecast.forecastday.get(i).day.maxtemp_f;
@@ -83,9 +93,16 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
         RequestQueue reqQueue = Volley.newRequestQueue(this);
         reqQueue.add(req);
     }
+
+    private void loadImage(String url) {
+        Picasso.get()
+                .load(url)
+                .into(currWeatherIMG);
+    }
     public void toSearch(View v){
         Intent search = new Intent(this, MainActivity.class);
         startActivity(search);
     }
+
 
 }

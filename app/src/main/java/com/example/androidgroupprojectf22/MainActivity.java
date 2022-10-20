@@ -68,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void toWeek(View v){
+        // TODO: if no text is entered GET the current location from the system, and pass it to the next activity
+        // may need to be in lat,long format as a string
+
+        // TODO: if location is not in the saved locations list, save it.
+        // TODO: have a list of locations in a list/arraylist in the savedInstanceStateBundle, available to get at any time.
         Intent week = new Intent(this, WeekForecast.class);
         EditText locationET = findViewById(R.id.locationET);
         week.putExtra("Location", locationET.getText().toString());

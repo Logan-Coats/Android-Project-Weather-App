@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 public class hourlyWeatherAdapter extends RecyclerView.Adapter<hourlyWeatherAdapter.MyViewHolder> {
-    private ArrayList<hourlyWeatherEntry> weatherEntries;
+    private ArrayList<hourlyModel> weatherEntries;
 
 
-    public hourlyWeatherAdapter(ArrayList<hourlyWeatherEntry> weatherEntries) {
+    public hourlyWeatherAdapter(ArrayList<hourlyModel> weatherEntries) {
         this.weatherEntries = weatherEntries;
     }
 
@@ -34,7 +34,7 @@ public class hourlyWeatherAdapter extends RecyclerView.Adapter<hourlyWeatherAdap
     @Override
     public void onBindViewHolder(@NonNull hourlyWeatherAdapter.MyViewHolder holder, int position) {
         TextView hourlyCell = holder.itemView.findViewById(R.id.hourlyCell);
-        hourlyCell.setText((CharSequence) weatherEntries.get(position));
+        hourlyCell.setText(weatherEntries.get(position).toString());
     }
 
     @Override

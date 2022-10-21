@@ -21,7 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -75,7 +75,7 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
                 forecast = forecastHelper.convertToObject(jsonResponse);
                 currTemp.setText(String.valueOf(forecast.current.temp_f));
                 currWeather.setText(String.valueOf(forecast.current.condition.text));
-                loadImage("https:" + forecast.current.condition.icon);
+                //loadImage("https:" + forecast.current.condition.icon);
                 for(int i = 0; i<5;i++){
                     double low = forecast.forecast.forecastday.get(i).day.mintemp_f;
                     double high = forecast.forecast.forecastday.get(i).day.maxtemp_f;
@@ -93,12 +93,13 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
         RequestQueue reqQueue = Volley.newRequestQueue(this);
         reqQueue.add(req);
     }
-
+/*
     private void loadImage(String url) {
         Picasso.get()
                 .load(url)
                 .into(currWeatherIMG);
     }
+ */
     public void toSearch(View v){
         Intent search = new Intent(this, MainActivity.class);
         startActivity(search);

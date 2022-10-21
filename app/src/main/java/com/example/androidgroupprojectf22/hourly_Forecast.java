@@ -35,7 +35,7 @@ public class hourly_Forecast extends AppCompatActivity {
 
 
     private void setAdapter() {
-        hourlyWeatherAdapter adapter = new hourlyWeatherAdapter(weatherEntries);
+        hourlyAdapter adapter = new hourlyAdapter();
         RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getApplicationContext());
         hourlyWeather.setLayoutManager(layoutmanager);
         hourlyWeather.setItemAnimator(new DefaultItemAnimator());

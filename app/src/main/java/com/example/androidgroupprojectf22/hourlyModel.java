@@ -38,7 +38,7 @@ public class hourlyModel {
     }
 
     private static hourlyModel model = null;
-    public static hourlyModel getModel() {
+    public static hourlyModel getSingleton() {
         if (model == null) {
             model = new hourlyModel();
         }

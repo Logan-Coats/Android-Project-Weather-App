@@ -86,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void toHistory(View v){
         Intent history = new Intent(this, activity_history.class);
+        EditText locationET = findViewById(R.id.locationET);
+        history.putExtra("Location", locationET.getText().toString());
         startActivity(history);
     }
 

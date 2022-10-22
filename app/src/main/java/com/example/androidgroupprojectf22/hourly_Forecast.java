@@ -14,16 +14,16 @@ import java.util.ArrayList;
 //Responsible for taking input from the Daily Forecast and representing hourly updates on the weather, temp, etc.
 
 public class hourly_Forecast extends AppCompatActivity {
-    private ArrayList<hourlyModel> weatherEntries;
-    private RecyclerView hourlyWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hourly_forecast);
-        weatherEntries = new ArrayList<>();
-        hourlyWeather = findViewById(R.id.hourlyWeather);
-        setAdapter();
+        hourlyAdapter adapter = new hourlyAdapter();
+        RecyclerView hourlyWeather = findViewById(R.id.hourlyWeather);
+        LinearLayoutManager myManager = new LinearLayoutManager(this);
+        hourlyWeather.setLayoutManager(myManager);
+        hourlyWeather.setAdapter(adapter);
     }
 
     //TODO: implement api call and populate fields and recycler view with the next 24 hours of weather (temp, condition)
@@ -36,9 +36,9 @@ public class hourly_Forecast extends AppCompatActivity {
 
     private void setAdapter() {
         hourlyAdapter adapter = new hourlyAdapter();
-        RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getApplicationContext());
-        hourlyWeather.setLayoutManager(layoutmanager);
-        hourlyWeather.setItemAnimator(new DefaultItemAnimator());
+        RecyclerView hourlyWeather = findViewById(R.id.hourlyWeather);
+        LinearLayoutManager myManager = new LinearLayoutManager(this);
+        hourlyWeather.setLayoutManager(myManager);
         hourlyWeather.setAdapter(adapter);
 
     }

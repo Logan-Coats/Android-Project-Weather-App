@@ -1,5 +1,6 @@
 package com.example.androidgroupprojectf22;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class hourlyAdapter extends RecyclerView.Adapter<hourlyAdapter.hourlyView
     public hourlyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.hourly_cell,parent,false);
-        hourlyAdapter.hourlyViewHolder vh = new hourlyAdapter.hourlyViewHolder(v);
+        hourlyViewHolder vh = new hourlyViewHolder(v);
         return vh;
     }
 
@@ -35,7 +36,7 @@ public class hourlyAdapter extends RecyclerView.Adapter<hourlyAdapter.hourlyView
         TextView hourlyCond = holder.itemView.findViewById(R.id.hourlyCondTV);
 
         hourlyTemp.setText(String.valueOf(model.getSingleton().getHourlyData().get(position).getTemp()));
-        hourlyCond.setText(model.getSingleton().getHourlyData().get(position).getCondition());
+        hourlyCond.setText(model.getSingleton().getHourlyData().get(position).getCondition().toString());
     }
     @Override
     public int getItemCount() { return model.getHourlyData().size(); }

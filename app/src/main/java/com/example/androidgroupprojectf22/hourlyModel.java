@@ -1,16 +1,19 @@
 package com.example.androidgroupprojectf22;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class hourlyModel {
 
-    private ArrayList<hourlyData> hourlyData= null;
+    private ArrayList<hourlyData> hourlyArray= null;
 
     public ArrayList<hourlyData> getHourlyData() {
-        return hourlyData;
+        return hourlyArray;
     }
+
     public void addHourlyData(String condition, int temp) {
-        this.hourlyData.add(new hourlyData(condition, temp));
+        this.hourlyArray.add(new hourlyData(condition, temp));
     }
 
 
@@ -33,7 +36,8 @@ public class hourlyModel {
     }
 
     private hourlyModel() {
-        this.hourlyData = new ArrayList<hourlyData>();
+        this.hourlyArray = new ArrayList<hourlyData>();
+        loadModel();
 
     }
 
@@ -46,9 +50,15 @@ public class hourlyModel {
     }
 
     private void loadModel() {
+        Log.d("test","test");
         addHourlyData("Rainy", 60);
         addHourlyData("Sunny", 90);
         addHourlyData("Cloudy", 75);
+        addHourlyData("Rainy", 40);
+        addHourlyData("Snow", 10);
+        addHourlyData("Sunny", 80);
+        Log.d("test", "yo");
+
     }
 }
 

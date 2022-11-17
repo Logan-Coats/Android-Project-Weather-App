@@ -16,64 +16,49 @@
         android:inputType="textPersonName"
         android:textColorHint="#757575"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintEnd_toStartOf="@+id/searchScrBTN"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.265" />
+        app:layout_constraintVertical_bias="0.207" />
 
     <Button
         android:id="@+id/searchScrBTN"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="304dp"
         android:onClick="toWeek"
         android:text="Search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/locationET"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.251" />
 
     <Button
         android:id="@+id/myLocationBTN"
-        android:layout_width="153dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="211dp"
+        android:layout_width="179dp"
+        android:layout_height="51dp"
         android:onClick="toMyLoc"
-        android:text="My Location"
+        android:text="Use My Location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.449" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/savedBTN"
+        app:layout_constraintTop_toBottomOf="@+id/locationET"
+        app:layout_constraintVertical_bias="0.067" />
 
     <Button
         android:id="@+id/savedBTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="193dp"
+        android:layout_height="53dp"
         android:onClick="toHistory"
         android:text="Saved Locations"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="78dp"
-        android:layout_marginBottom="28dp"
-        android:onClick="toHourly"
-        android:text="To Hourly(Not For Final Build)"
-        app:layout_constraintBottom_toTopOf="@+id/savedBTN"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/myLocationBTN"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myLocationBTN" />
+        app:layout_constraintTop_toBottomOf="@+id/locationET"
+        app:layout_constraintVertical_bias="0.067" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

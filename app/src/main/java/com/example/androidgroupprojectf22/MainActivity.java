@@ -90,10 +90,4 @@ public class MainActivity extends AppCompatActivity {
         history.putExtra("Location", locationET.getText().toString());
         startActivity(history);
     }
-
-
-    public void toHourly(View v) {
-        Intent hourly = new Intent(this, hourly_Forecast.class);
-        startActivity(hourly);
-    }
 }

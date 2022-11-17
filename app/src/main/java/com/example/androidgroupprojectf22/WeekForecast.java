@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'Daily' activity, as it will show the weather for the next few days.
     private String appid = "0ffb075f7e03483db28200427220310";
@@ -40,6 +42,7 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
     RecyclerView weeklyRecycler = null;
     TextView currTemp;
     TextView currWeather;
+    TextView currLoc;
     ImageView currWeatherIMG;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
         location = week.getStringExtra("Location");
         currTemp = findViewById(R.id.currTemp);
         currWeather = findViewById(R.id.currWeather);
+        currLoc = findViewById(R.id.currLoc);
         currWeatherIMG = findViewById(R.id.currWeatherIMG);
 
         weeklyServer = new WeeklyAdapter();
@@ -75,19 +79,22 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
                 forecast = forecastHelper.convertToObject(jsonResponse);
                 currTemp.setText(String.valueOf(forecast.current.temp_f));
                 currWeather.setText(String.valueOf(forecast.current.condition.text));
-                //loadImage("https:" + forecast.current.condition.icon);
+                currLoc.setText(forecast.location.name + ", "+ forecast.location.region+", "+forecast.location.country);
+                ArrayList<WeeklyModel.WeeklyData> tempData = new ArrayList<>();
                 for(int i = 0; i<5;i++){
-                    double low = forecast.forecast.forecastday.get(i).day.mintemp_f;
-                    double high = forecast.forecast.forecastday.get(i).day.maxtemp_f;
-                    String condition = forecast.forecast.forecastday.get(i).date;
-                    WeeklyModel.getModel().addWeeklyData(low,high,condition);
-                    weeklyServer.notifyItemInserted(i);
+                    tempData.add(new WeeklyModel.WeeklyData(forecast.forecast.forecastday.get(i).day.mintemp_f,
+                            forecast.forecast.forecastday.get(i).day.maxtemp_f,
+                            forecast.forecast.forecastday.get(i).date));
                 }
+                WeeklyModel.getModel().addWeeklyData(tempData);
+                weeklyServer.notifyItemRangeChanged(0,5);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("TAG", error.toString().trim());
+                toSearch(findViewById(R.id.searchBT));
+                //upon error, take user back to search screen.
             }
         });
         RequestQueue reqQueue = Volley.newRequestQueue(this);
@@ -105,5 +112,10 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
         startActivity(search);
     }
 
+    public void toHourly(View v){
+        Intent hourly = new Intent(this, hourly_Forecast.class);
+        hourly.putExtra("Location", location);
+        startActivity(hourly);
+    }
 
 }

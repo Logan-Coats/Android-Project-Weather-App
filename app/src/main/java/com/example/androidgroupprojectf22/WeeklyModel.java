@@ -1,5 +1,7 @@
 package com.example.androidgroupprojectf22;
 
+import android.util.Log;
+
 import java.sql.Array;
 import java.util.ArrayList;
 
@@ -8,7 +10,6 @@ public class WeeklyModel {
         this.weeklyData = new ArrayList<WeeklyData>();
         loadModel();
     }
-
     public static class WeeklyData{
         private double low;
         private double high;
@@ -32,8 +33,10 @@ public class WeeklyModel {
     }
     public ArrayList<WeeklyData> getWeeklyData(){return weeklyData;}
     private ArrayList<WeeklyData> weeklyData = null;
-    public void addWeeklyData(double low, double high, String condition){
-        this.weeklyData.add(new WeeklyData(low,high,condition));
+    public void addWeeklyData(ArrayList<WeeklyData> newData){
+        for(int i = 0; i < this.weeklyData.size()-1; i++){
+            this.weeklyData.set(i,newData.get(i));
+        }
     }
 
     private static WeeklyModel model = null;
@@ -48,5 +51,4 @@ public class WeeklyModel {
         //addWeeklyData(1.0,2.0,"sunny");
         //addWeeklyData(2.0,3.0,"cloudy");
     }
-
 }

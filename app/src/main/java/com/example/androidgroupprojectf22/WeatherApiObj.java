@@ -8,7 +8,7 @@ public class WeatherApiObj implements java.io.Serializable {
     class location_dtype {
         public String name;
         public String region;
-        public String Country;
+        public String country;
         public double lat;
         public double lon;
         public String tz_id;

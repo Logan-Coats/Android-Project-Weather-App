@@ -61,12 +61,12 @@
         android:id="@+id/currWeatherIMG"
         android:layout_width="48dp"
         android:layout_height="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/weeklyRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/currWeather"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31"
+        app:layout_constraintTop_toBottomOf="@+id/currLoc"
+        app:layout_constraintVertical_bias="0.549"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -78,5 +78,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/toHourlyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="toHourly"
+        android:text="Later Today"
+        app:layout_constraintBottom_toTopOf="@+id/weeklyRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currWeather" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

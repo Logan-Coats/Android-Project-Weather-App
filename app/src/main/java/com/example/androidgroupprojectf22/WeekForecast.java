@@ -22,7 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-//import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -31,7 +31,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'Daily' activity, as it will show the weather for the next few days.
+public class WeekForecast extends AppCompatActivity {
+    //weeklyforecast is the 'Daily' activity, as it will show the weather for the next few days.
     private String appid = "0ffb075f7e03483db28200427220310";
     private String location = "64468";
     private String url = "https://api.weatherapi.com/v1/forecast.json?key="+appid+"&q=";
@@ -85,9 +86,10 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
                     tempData.add(new WeeklyModel.WeeklyData(forecast.forecast.forecastday.get(i).day.mintemp_f,
                             forecast.forecast.forecastday.get(i).day.maxtemp_f,
                             forecast.forecast.forecastday.get(i).date));
+                    WeeklyModel.getModel().addWeeklyData(tempData.get(i).getLow(), tempData.get(i).getHigh(),tempData.get(i).getCondition(), i);
+                    weeklyServer.notifyItemChanged(i);
                 }
-                WeeklyModel.getModel().addWeeklyData(tempData);
-                weeklyServer.notifyItemRangeChanged(0,5);
+                loadImage("https://"+forecast.current.condition.icon);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -100,13 +102,11 @@ public class WeekForecast extends AppCompatActivity { //weeklyforecast is the 'D
         RequestQueue reqQueue = Volley.newRequestQueue(this);
         reqQueue.add(req);
     }
-/*
+
     private void loadImage(String url) {
-        Picasso.get()
-                .load(url)
-                .into(currWeatherIMG);
+        Glide.with(this).load(url).into(currWeatherIMG);
     }
- */
+
     public void toSearch(View v){
         Intent search = new Intent(this, MainActivity.class);
         startActivity(search);

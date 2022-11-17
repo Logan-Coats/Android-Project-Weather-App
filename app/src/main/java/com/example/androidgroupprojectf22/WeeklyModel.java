@@ -33,11 +33,16 @@ public class WeeklyModel {
     }
     public ArrayList<WeeklyData> getWeeklyData(){return weeklyData;}
     private ArrayList<WeeklyData> weeklyData = null;
-    public void addWeeklyData(ArrayList<WeeklyData> newData){
-        for(int i = 0; i < this.weeklyData.size()-1; i++){
-            this.weeklyData.set(i,newData.get(i));
+
+    public void addWeeklyData(double low, double high, String condition, int location){
+        if(this.weeklyData.size() != 5){
+            this.weeklyData.add(new WeeklyData(low,high,condition));
+        }else{
+            this.weeklyData.set(location, new WeeklyData(low,high,condition));
         }
+
     }
+
 
     private static WeeklyModel model = null;
     public static WeeklyModel getModel(){
@@ -48,7 +53,5 @@ public class WeeklyModel {
     }
 
     private void loadModel(){
-        //addWeeklyData(1.0,2.0,"sunny");
-        //addWeeklyData(2.0,3.0,"cloudy");
     }
 }

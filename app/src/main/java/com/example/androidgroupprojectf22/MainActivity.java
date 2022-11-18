@@ -27,10 +27,14 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.sql.Array;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationClient;
     private double lat;
     private double lon;
+    private ArrayList<String> locations = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +100,13 @@ public class MainActivity extends AppCompatActivity {
         if(locationET.getText().toString().isEmpty()){
             // TODO: if no text is entered GET the current location from the system, and pass it to the next activity
             // may need to be in lat,long format as a string
+        } else {
+            if(!locations.contains(locationET.getText().toString().toLowerCase())) {
+                locations.add(locationET.getText().toString().toLowerCase());
+            }
         }
+        // Saves to local files
+        PrefConfig.writeListInPref(getApplicationContext(), locations);
         week.putExtra("Location", locationET.getText().toString());
         startActivity(week);
     }
@@ -111,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         Intent history = new Intent(this, activity_history.class);
         EditText locationET = findViewById(R.id.locationET);
         history.putExtra("Location", locationET.getText().toString());
+        Log.d("Locations", locations.get(0));
         startActivity(history);
     }
 }

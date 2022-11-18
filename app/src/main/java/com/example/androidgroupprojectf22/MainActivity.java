@@ -26,6 +26,15 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationClient;
@@ -88,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
     };
     public void toWeek(View v){
 
+        ParseObject locationObject = new ParseObject("Locations");
+        final List<ParseObject> result = new ArrayList<ParseObject>();
 
         // TODO: if location is not in the saved locations list, save it. do this in weekly so that the name is finalized.
         // TODO: have a list of locations in a list/arraylist in the savedInstanceStateBundle, available to get at any time.
@@ -96,6 +107,40 @@ public class MainActivity extends AppCompatActivity {
         if(locationET.getText().toString().isEmpty()){
             // TODO: if no text is entered GET the current location from the system, and pass it to the next activity
             // may need to be in lat,long format as a string
+        } else {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Locations");
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    if(e == null) {
+                        int counter = 0;
+                        for(int i = 0; i < objects.size(); i++) {
+                            result.add(objects.get(i));
+                            if (objects.get(i).get("location").equals(locationET.getText().toString())) {
+                                counter++;
+                            }
+                            Log.d("Parse", "Location: " + objects.get(i).get("location") + locationET.getText().toString());
+                        }
+
+                        if(counter == 0) {
+                            locationObject.put("location", locationET.getText().toString());
+                            locationObject.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e != null) {
+                                        Log.e("Parse", e.getMessage());
+                                    } else {
+                                        Log.d("Parse", "Location saved.");
+                                    }
+                                }
+                            });
+                        }
+
+                    } else {
+                        Log.d("Parse", e.getMessage());
+                    }
+                }
+            });
         }
         week.putExtra("Location", locationET.getText().toString());
         startActivity(week);

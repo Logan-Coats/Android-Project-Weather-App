@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AndroidGroupProjectF22</string>
+
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+
+    <!-- Paste BOTH strings as required -->
+    <string name="back4app_app_id">vqgl7chS19nWMMhKYS8bW6bIZcXe5tiHaAwBuezS</string>
+    <string name="back4app_client_key">fvoZh25xmCBnMSHNhpf0Egsf9Eo4KNl3JHf2hycl</string>
+
 </resources>

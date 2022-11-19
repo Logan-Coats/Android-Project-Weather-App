@@ -23,6 +23,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -73,12 +77,26 @@ public class WeekForecast extends AppCompatActivity {
             url = url.concat("&days=5&aqi=no&alerts=no");
         }
 
+        ParseObject parse = new ParseObject("History");
+
         StringRequest req = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 jsonResponse = response;
                 forecast = forecastHelper.convertToObject(jsonResponse);
                 currTemp.setText(String.valueOf(forecast.current.temp_f));
+                parse.put("loc", loc);
+                parse.put("temp", String.valueOf(forecast.current.temp_f));
+                parse.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Log.d("Temp", e.getMessage());
+                        } else {
+                            Log.d("Temp", "Object saved");
+                        }
+                    }
+                });
                 currWeather.setText(String.valueOf(forecast.current.condition.text));
                 currLoc.setText(forecast.location.name + ", "+ forecast.location.region+", "+forecast.location.country);
                 ArrayList<WeeklyModel.WeeklyData> tempData = new ArrayList<>();

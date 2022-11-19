@@ -107,40 +107,6 @@ public class MainActivity extends AppCompatActivity {
         if(locationET.getText().toString().isEmpty()){
             // TODO: if no text is entered GET the current location from the system, and pass it to the next activity
             // may need to be in lat,long format as a string
-        } else {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Locations");
-            query.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List<ParseObject> objects, ParseException e) {
-                    if(e == null) {
-                        int counter = 0;
-                        for(int i = 0; i < objects.size(); i++) {
-                            result.add(objects.get(i));
-                            if (objects.get(i).get("location").equals(locationET.getText().toString())) {
-                                counter++;
-                            }
-                            Log.d("Parse", "Location: " + objects.get(i).get("location") + locationET.getText().toString());
-                        }
-
-                        if(counter == 0) {
-                            locationObject.put("location", locationET.getText().toString());
-                            locationObject.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e != null) {
-                                        Log.e("Parse", e.getMessage());
-                                    } else {
-                                        Log.d("Parse", "Location saved.");
-                                    }
-                                }
-                            });
-                        }
-
-                    } else {
-                        Log.d("Parse", e.getMessage());
-                    }
-                }
-            });
         }
         week.putExtra("Location", locationET.getText().toString());
         startActivity(week);
@@ -154,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void toHistory(View v){
         Intent history = new Intent(this, activity_history.class);
-        EditText locationET = findViewById(R.id.locationET);
-        history.putExtra("Location", locationET.getText().toString());
         startActivity(history);
     }
 }

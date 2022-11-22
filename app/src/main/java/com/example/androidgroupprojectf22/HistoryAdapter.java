@@ -22,11 +22,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.HistoryViewHolder holder, int position) {
-        TextView locTV = holder.itemView.findViewById(R.id.locTV);
-        locTV.setText(model.getHistoryList().get(position).getLocation().toString());
+        TextView locTV = holder.itemView.findViewById(R.id.locationTV);
+        locTV.setText(model.getHistoryList().get(position).getLocation());
 
         TextView tempTV = holder.itemView.findViewById(R.id.tempTV);
-        tempTV.setText(model.getHistoryList().get(position).getTemp().toString());
+        tempTV.setText(model.getHistoryList().get(position).getTemp());
     }
 
     @Override

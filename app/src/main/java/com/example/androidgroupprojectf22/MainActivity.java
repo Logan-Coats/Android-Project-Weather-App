@@ -26,6 +26,15 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationClient;
@@ -88,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
     };
     public void toWeek(View v){
 
+        ParseObject locationObject = new ParseObject("Locations");
+        final List<ParseObject> result = new ArrayList<ParseObject>();
 
         // TODO: if location is not in the saved locations list, save it. do this in weekly so that the name is finalized.
         // TODO: have a list of locations in a list/arraylist in the savedInstanceStateBundle, available to get at any time.
@@ -109,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void toHistory(View v){
         Intent history = new Intent(this, activity_history.class);
-        EditText locationET = findViewById(R.id.locationET);
-        history.putExtra("Location", locationET.getText().toString());
         startActivity(history);
     }
 }

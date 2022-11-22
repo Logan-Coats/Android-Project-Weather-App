@@ -4,46 +4,47 @@ import java.util.ArrayList;
 
 public class HistoryModel {
 
-    public static class History {
+    public static class HistoryData {
         private String location;
-        private Double temp;
+        private String temp;
 
-        public History(String location, Double temp) {
+        public HistoryData(String location, String temp) {
             this.location = location;
             this.temp = temp;
         }
-
         public String getLocation() {
             return location;
         }
-
-        public void setLocation(String location) {
-            this.location = location;
-        }
-
-        public Double getTemp() {
+        public String getTemp() {
             return temp;
         }
-
-        public void setTemp(Double temp) {
-            this.temp = temp;
-        }
     }
 
-    private ArrayList<History> historyList = null;
+    private ArrayList<HistoryData> historyList = null;
 
     private HistoryModel() {
-        historyList = new ArrayList<History>();
+        historyList = new ArrayList<HistoryData>();
     }
 
-    public ArrayList<History> getHistoryList() {
+    public ArrayList<HistoryData> getHistoryList() {
         return historyList;
     }
 
-    // Make it a singleton
+    public void addHistoryData(String location, String temp) {
+        this.historyList.add(new HistoryData(location, temp));
+    }
+
+    public String getHistoryLoc(int i) {
+        return this.historyList.get(i).location;
+    }
+
+    public void resetList() {
+        this.historyList = new ArrayList<HistoryData>();
+    }
+
     private static HistoryModel model = null;
-    public static HistoryModel getModel() {
-        if(model == null) {
+    public static HistoryModel getModel(){
+        if(model == null){
             model = new HistoryModel();
         }
         return model;

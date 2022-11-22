@@ -12,26 +12,31 @@ public class hourlyModel {
         return hourlyArray;
     }
 
-    public void addHourlyData(String condition, int temp) {
-        this.hourlyArray.add(new hourlyData(condition, temp));
+    public void addHourlyData(String time, double temp, String condition) {
+        this.hourlyArray.add(new hourlyData(time, temp, condition));
     }
 
 
 
     public static class hourlyData {
+        private String time;
+        private double temp;
         private String condition;
-        private int temp;
 
-        public hourlyData(String condition, int temp) {
-            this.condition = condition;
+        public hourlyData(String time, double temp, String condition) {
+            this.time = time;
             this.temp = temp;
+            this.condition = condition;
         }
 
+        public String getTime() {
+            return this.time;
+        }
+        public double getTemp() {
+            return this.temp;
+        }
         public String getCondition() {
             return this.condition;
-        }
-        public int getTemp() {
-            return this.temp;
         }
     }
 
@@ -50,15 +55,6 @@ public class hourlyModel {
     }
 
     private void loadModel() {
-        Log.d("test","test");
-        addHourlyData("Rainy", 60);
-        addHourlyData("Sunny", 90);
-        addHourlyData("Cloudy", 75);
-        addHourlyData("Rainy", 40);
-        addHourlyData("Snow", 10);
-        addHourlyData("Sunny", 80);
-        Log.d("test", "yo");
-
     }
 }
 

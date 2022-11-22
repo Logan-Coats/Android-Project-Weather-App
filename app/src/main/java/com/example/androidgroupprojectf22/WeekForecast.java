@@ -115,6 +115,7 @@ public class WeekForecast extends AppCompatActivity {
     public void toHourly(View v){
         Intent hourly = new Intent(this, hourly_Forecast.class);
         hourly.putExtra("Location", location);
+        hourly.putExtra("Weather", jsonResponse);
         startActivity(hourly);
     }
 

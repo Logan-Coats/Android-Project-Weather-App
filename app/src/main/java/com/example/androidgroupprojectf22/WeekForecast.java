@@ -85,7 +85,7 @@ public class WeekForecast extends AppCompatActivity {
                 jsonResponse = response;
                 forecast = forecastHelper.convertToObject(jsonResponse);
                 currTemp.setText(String.valueOf(forecast.current.temp_f));
-                parse.put("loc", loc);
+                parse.put("loc", forecast.location.name);
                 parse.put("temp", String.valueOf(forecast.current.temp_f));
                 parse.saveInBackground(new SaveCallback() {
                     @Override

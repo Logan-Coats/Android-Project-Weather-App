@@ -37,13 +37,15 @@ implements HistoryDF.HistorySelectionCallbacks {
 
     private String appid = "0ffb075f7e03483db28200427220310";
     private String url = "https://api.weatherapi.com/v1/current.json?key="+appid+"&q=";
-    private WeatherApiObj weather = new WeatherApiObj();
+    private WeatherApiObj forecast = new WeatherApiObj();
     private Weather forecastHelper = new Weather();
     private String region;
     private List<String> currentTemps = new ArrayList<>();
     final List<ParseObject> result = new ArrayList<ParseObject>();
     private String location = "64468";
     private Integer position;
+    private String objectID;
+    private String temp;
 
 
     public void callApi(String loc) {
@@ -55,8 +57,10 @@ implements HistoryDF.HistorySelectionCallbacks {
         StringRequest req = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                weather = forecastHelper.convertToObject(response);
-                region = weather.location.region;
+                forecast = forecastHelper.convertToObject(response);
+                region = forecast.location.region;
+                temp = String.valueOf(forecast.current.temp_f);
+                Log.d("Parse", temp);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -94,6 +98,11 @@ implements HistoryDF.HistorySelectionCallbacks {
                 }
             });
         }
+        startActivity(getIntent());
+        finish();
+        overridePendingTransition(0, 0);
+
+        Toast.makeText(activity_history.this, "Removed!", Toast.LENGTH_SHORT);
         Log.d("Dialog", "Positive");
     }
 
@@ -120,6 +129,25 @@ implements HistoryDF.HistorySelectionCallbacks {
                 }
                 historyServer.notifyDataSetChanged();
             }
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            RecyclerView historyRV = findViewById(R.id.historyRV);
+            View view = historyRV.findChildViewUnder(e.getX(), e.getY());
+            if (view != null) {
+                RecyclerView.ViewHolder holder = historyRV.getChildViewHolder(view);
+                if (holder instanceof HistoryAdapter.HistoryViewHolder) {
+                    int position = holder.getAdapterPosition();
+                    Log.d("Tap", "Tapped on item " + position);
+                    Log.d("Updateedd", (String) result.get(position).get("loc"));
+
+                    updateData((String) result.get(position).get("loc"));
+                    historyServer.notifyDataSetChanged();
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
@@ -165,6 +193,51 @@ implements HistoryDF.HistorySelectionCallbacks {
             }
         });
 
+    }
+
+    private void updateData(String loc) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("History");
+        Log.d("Parse", loc);
+        // Ensure only edits wanted values.
+        query.whereEqualTo("loc", loc);
+
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    objectID = object.getObjectId().toString();
+
+                    callApi(loc);
+
+                    query.getInBackground(objectID, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject object, ParseException e) {
+                            if (e == null) {
+                                object.put("loc", loc);
+                                if (temp != null) {
+                                    object.put("temp", temp);
+                                }
+
+                                object.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(activity_history.this, "Temperature Updated", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(activity_history.this, "Failed to Update Temperature", Toast.LENGTH_SHORT);
+                                        }
+                                    }
+                                });
+                            } else {
+                                Log.d("Parsess", e.getMessage());
+                            }
+                        }
+                    });
+                } else {
+                    Log.d("Parsess", e.getMessage());
+                }
+            }
+        });
     }
 
     private HistoryModel model = HistoryModel.getModel();

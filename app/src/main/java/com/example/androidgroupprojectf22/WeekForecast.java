@@ -87,6 +87,7 @@ public class WeekForecast extends AppCompatActivity {
                 currTemp.setText(String.valueOf(forecast.current.temp_f));
                 parse.put("loc", forecast.location.name);
                 parse.put("temp", String.valueOf(forecast.current.temp_f));
+                parse.put("coords", forecast.location.lat + "," + forecast.location.lon);
                 parse.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

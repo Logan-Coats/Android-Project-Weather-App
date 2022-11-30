@@ -60,7 +60,7 @@ implements HistoryDF.HistorySelectionCallbacks {
                 forecast = forecastHelper.convertToObject(response);
                 region = forecast.location.region;
                 temp = String.valueOf(forecast.current.temp_f);
-                Log.d("Parse", temp);
+                Log.d("Parse", loc + ", " + region + " " + temp);
             }
         }, new Response.ErrorListener() {
             @Override

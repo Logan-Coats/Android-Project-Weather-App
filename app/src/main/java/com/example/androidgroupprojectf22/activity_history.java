@@ -224,6 +224,9 @@ implements HistoryDF.HistorySelectionCallbacks {
                                     @Override
                                     public void done(ParseException e) {
                                         if (e == null) {
+                                            startActivity(getIntent());
+                                            finish();
+                                            overridePendingTransition(0, 0);
                                             Toast.makeText(activity_history.this, "Temperature Updated", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(activity_history.this, "Failed to Update Temperature", Toast.LENGTH_SHORT);
@@ -240,9 +243,6 @@ implements HistoryDF.HistorySelectionCallbacks {
                 }
             }
         });
-        startActivity(getIntent());
-        finish();
-        overridePendingTransition(0, 0);
     }
 
     private HistoryModel model = HistoryModel.getModel();

@@ -37,6 +37,7 @@ implements HistoryDF.HistorySelectionCallbacks {
 
     private String appid = "0ffb075f7e03483db28200427220310";
     private String url = "https://api.weatherapi.com/v1/current.json?key="+appid+"&q=";
+    private String baseURL = "https://api.weatherapi.com/v1/current.json?key="+appid+"&q=";
     private WeatherApiObj forecast = new WeatherApiObj();
     private Weather forecastHelper = new Weather();
     private String region;
@@ -60,7 +61,7 @@ implements HistoryDF.HistorySelectionCallbacks {
                 forecast = forecastHelper.convertToObject(response);
                 region = forecast.location.region;
                 temp = String.valueOf(forecast.current.temp_f);
-                Log.d("Parse", loc + ", " + region + " " + temp);
+                Log.d("Parse", loc + ", " + forecast.location.name + ", " + forecast.location.region + " " + temp);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -70,6 +71,7 @@ implements HistoryDF.HistorySelectionCallbacks {
         });
         RequestQueue reqQueue = Volley.newRequestQueue(this);
         reqQueue.add(req);
+        url = baseURL;
     }
 
     public void toSearch(View v){
@@ -142,7 +144,7 @@ implements HistoryDF.HistorySelectionCallbacks {
                     Log.d("Tap", "Tapped on item " + position);
                     Log.d("Updateedd", (String) result.get(position).get("loc"));
 
-                    updateData((String) result.get(position).get("loc"));
+                    updateData((String) result.get(position).get("coords"));
                     historyServer.notifyDataSetChanged();
                     return true;
                 }
@@ -199,7 +201,7 @@ implements HistoryDF.HistorySelectionCallbacks {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("History");
         Log.d("Parse", loc);
         // Ensure only edits wanted values.
-        query.whereEqualTo("loc", loc);
+        query.whereEqualTo("coords", loc);
 
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
@@ -207,13 +209,13 @@ implements HistoryDF.HistorySelectionCallbacks {
                 if (e == null) {
                     objectID = object.getObjectId().toString();
 
-                    callApi(loc);
+                    callApi(object.get("coords").toString());
 
                     query.getInBackground(objectID, new GetCallback<ParseObject>() {
                         @Override
                         public void done(ParseObject object, ParseException e) {
                             if (e == null) {
-                                object.put("loc", loc);
+                                object.put("coords", loc);
                                 if (temp != null) {
                                     object.put("temp", temp);
                                 }
@@ -229,15 +231,18 @@ implements HistoryDF.HistorySelectionCallbacks {
                                     }
                                 });
                             } else {
-                                Log.d("Parsess", e.getMessage());
+                                Log.d("Parsessss", e.getMessage());
                             }
                         }
                     });
                 } else {
-                    Log.d("Parsess", e.getMessage());
+                    Log.d("Parse", e.getMessage());
                 }
             }
         });
+        startActivity(getIntent());
+        finish();
+        overridePendingTransition(0, 0);
     }
 
     private HistoryModel model = HistoryModel.getModel();

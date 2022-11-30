@@ -38,8 +38,8 @@ public class WeatherApiObj implements java.io.Serializable {
         public String wind_dir;
         public int pressure_mb;
         public double pressure_in;
-        public int precip_mm;
-        public int precip_in;
+        public double precip_mm;
+        public double precip_in;
         public int humidity;
         public int cloud;
         public double feels_like_c;
